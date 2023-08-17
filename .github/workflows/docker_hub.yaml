@@ -36,7 +36,5 @@ jobs:
         path: .
     - name: pull docker
       run: chmod +x ci/pull-docker.sh && ci/pull-docker.sh
-    - name: build docker
-      run: chmod +x ci/build-docker.sh && ci/build-docker.sh
-    - name: push docker
-      run: chmod +x ci/push-docker.sh && ci/push-docker.sh
+    - name: run docker image
+      run: chmod +x ci/run-docker.sh && ci/run-docker.sh
