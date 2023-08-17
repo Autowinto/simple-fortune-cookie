@@ -6,7 +6,7 @@ on:
     branches: [ "main" ]
 
 env:
-  docker_username: ${{ autowinto }}
+  docker_username: autowinto
   docker_password: ${{ secrets.GITHUB_TOKEN }}
   GIT_COMMIT: ${{ github.sha }}
 
