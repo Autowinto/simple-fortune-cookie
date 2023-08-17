@@ -1,0 +1,42 @@
+name: Docker hub
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  docker_username: ${{ github.actor }}
+  docker_password: ${{ secrets.GITHUB_TOKEN }}
+  GIT_COMMIT: ${{ github.sha }}
+
+jobs:
+  Clone-down:
+      name: Clone repo down
+      runs-on: ubuntu-latest
+      steps:
+      - uses: actions/checkout@v3
+      - name: Upload Repo
+        uses: actions/upload-artifact@v3
+        with:
+          name: repo
+          path: .
+
+  Docker-image:
+    name: Pull and build docker image
+    runs-on: ubuntu-latest
+    needs: [Clone-down]
+    permissions:
+      packages: write
+    steps:
+    - name: Download code
+      uses: actions/download-artifact@v3
+      with: 
+        name: repo
+        path: .
+    - name: pull docker
+      run: chmod +x ci/pull-docker.sh && ci/pull-docker.sh
+    - name: build docker
+      run: chmod +x ci/build-docker.sh && ci/build-docker.sh
+    - name: push docker
+      run: chmod +x ci/push-docker.sh && ci/push-docker.sh
