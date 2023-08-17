@@ -23,7 +23,7 @@ jobs:
           path: .
 
   Docker-image:
-    name: Pull and build docker image
+    name: Pull docker image
     runs-on: ubuntu-latest
     needs: [Clone-down]
     permissions:
@@ -34,7 +34,7 @@ jobs:
       with: 
         name: repo
         path: .
-    - name: pull docker
-      run: chmod +x ci/pull-docker.sh && ci/pull-docker.sh
-    - name: run docker image
-      run: chmod +x ci/run-docker.sh && ci/run-docker.sh
+    - name: build docker
+      run: chmod +x ci/build-docker.sh && ci/build-docker.sh
+    - name: Push docker
+      run: chmod +x ci/push-docker.sh && ci/push-docker.sh
