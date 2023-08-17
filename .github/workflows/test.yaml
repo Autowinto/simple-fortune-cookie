@@ -18,4 +18,4 @@ jobs:
     - name: Set up gcc
       run: sudo apt update && sudo apt install -y gcc
     - name: Test
-      run: go test
+      run: cd frontend && go test
