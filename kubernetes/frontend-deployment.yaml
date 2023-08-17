@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: frontend
+  name: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - image: ghcr.io/autowinto/fortune-cookie-frontend:latest
+        name: fortune-cookie-frontend
+        ports:
+          - containerPort: 6379
+        env:
+          - name: BACKEND_DNS
+            value: backend
+          - name: BACKEND_PORT
+            value: "9000"
+        resources: {}
+status: {}
