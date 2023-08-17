@@ -1,15 +1,25 @@
 version: '3'
 services:
+  backend:
+    image: ghcr.io/autowinto/fortune-cookie-backend:latest 
+    ports:
+      - "9000:9000"
+    depends_on:
+      - redis
+    environment:
+    - REDIS_DNS=redis
+
+  redis:
+    image: redis:latest
+    ports:
+      - 6379:6379
+
   frontend:
-    build:
-      context: ./frontend
+    image: ghcr.io/autowinto/fortune-cookie-frontend:latest 
     ports:
       - "8080:8080"
     depends_on:
       - backend
-
-  backend:
-    build:
-      context: ./backend
-    ports:
-      - "9000:9000"
+    environment:
+      - BACKEND_DNS=backend
+      - BACKEND_PORT=9000
