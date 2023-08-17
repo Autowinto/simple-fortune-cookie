@@ -6,7 +6,7 @@ on:
     branches: [ "main" ]
 
 env:
-  docker_username: ${{ github.actor }}
+  docker_username: ${{ autowinto }}
   docker_password: ${{ secrets.GITHUB_TOKEN }}
   GIT_COMMIT: ${{ github.sha }}
 
@@ -23,7 +23,7 @@ jobs:
           path: .
 
   Docker-image:
-    name: Pull docker image
+    name: Build docker image and push
     runs-on: ubuntu-latest
     needs: [Clone-down]
     permissions:
