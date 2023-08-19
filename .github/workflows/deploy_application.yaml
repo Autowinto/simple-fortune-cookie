@@ -26,7 +26,7 @@ jobs:
           kubeconfig: ${{ secrets.KUBECONFIG }}
 
       - name: Deploy application
-        run: kubectl apply -f /kubernetes .  # Adjust path as needed
+        run: kubectl apply -f /kubernetes  # Adjust path as needed
 
       - name: Wait for deployment
         run: kubectl rollout status deployment  # Adjust deployment and namespace
