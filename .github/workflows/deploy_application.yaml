@@ -24,7 +24,9 @@ jobs:
         with:
           method: kubeconfig
           kubeconfig: ${{ secrets.KUBECONFIG }}
-
+      - name: List files in kubernetes directory
+        run: ls -l /kubernetes
+        
       - name: Deploy application  
         env:
           KUBECONFIG: ${{ secrets.KUBECONFIG }}    
