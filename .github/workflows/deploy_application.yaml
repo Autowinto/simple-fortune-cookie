@@ -26,7 +26,7 @@ jobs:
           kubeconfig: ${{ secrets.KUBECONFIG }}
       - name: List files in kubernetes directory
         run: ls -l kubernetes
-      - run: echo "${{ secrets.KUBECONFIG }}" | base64 -d > kubeconfig
+      #- run: echo "${{ secrets.KUBECONFIG }}" | base64 -d > kubeconfig
       - name: Deploy application      
         env:
           KUBECONFIG: ${{ secrets.KUBECONFIG }}
