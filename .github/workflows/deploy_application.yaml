@@ -15,15 +15,15 @@ jobs:
 
       - name: Debug
         env:
-          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+          KUBE_CONFIG_DATA: ${{ secrets.KUBECONFIG }}
         run: |
-          echo "KUBE_CONFIG_DATA: $KUBE_CONFIG_DATA"
+          echo "KUBE_CONFIG_DATA: $KUBECONFIG"
 
       - name: Set up kubectl
         uses: azure/k8s-set-context@v1
         with:
           method: kubeconfig
-          kubeconfig: ${{ secrets.KUBE_CONFIG_DATA }}
+          kubeconfig: ${{ secrets.KUBECONFIG }}
 
       - name: Deploy application
         run: kubectl apply -f /kubernetes .  # Adjust path as needed
