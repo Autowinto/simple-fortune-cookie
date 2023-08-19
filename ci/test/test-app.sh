@@ -5,6 +5,7 @@ FRONTEND_NODE_PORT=$(kubectl get service frontend -o jsonpath='{.spec.ports[0].n
 APP_URL="http://$NODE_EXTERNAL_IP:$FRONTEND_NODE_PORT/api/all"
 EXPECTED_RESP="200"
 
+echo "${kubeconfigdata}"
 RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" "$APP_URL")
 echo $NODE_EXTERNAL_IP
 echo $FRONTEND_NODE_PORT
