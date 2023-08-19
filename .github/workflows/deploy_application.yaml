@@ -1,0 +1,31 @@
+name: Deploy and Test application
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  deploy_and_test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up kubectl
+        uses: azure/k8s-set-context@v1
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.KUBE_CONFIG_DATA }}  # Set this secret in your repository
+
+      - name: Deploy application
+        run: kubectl apply -f /kubernetes .  # Adjust path as needed
+
+      - name: Wait for deployment
+        run: kubectl rollout status deployment  # Adjust deployment and namespace
+
+      - name: Run test script
+        run: |
+          chmod +x ci/test_script.sh &&
+          ci/test_script.sh
