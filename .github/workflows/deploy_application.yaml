@@ -14,11 +14,11 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Debug
+    - name: Decode kubeconfig
+      run: echo "${{ secrets.KUBECONFIG }}" | base64 -d > kubeconfig
+      shell: /usr/bin/bash -e {0}
       env:
-        KUBE_CONFIG_DATA: ${{ secrets.KUBECONFIG }}
-      run: |
-        echo "KUBE_CONFIG_DATA: $KUBECONFIG"
+        KUBECONFIG: /home/runner/work/_temp/kubeconfig_1692563521034
 
     - name: Set up kubectl
       uses: azure/k8s-set-context@v1
@@ -28,9 +28,6 @@ jobs:
 
     - name: List files in kubernetes directory
       run: ls -l kubernetes
-
-    - name: set kubeconfig data
-      run: echo "${{ secrets.KUBECONFIG }}" | base64 -di > kubeconfig
 
     - name: Deploy application
       run: kubectl --kubeconfig kubeconfig apply -f kubernetes
