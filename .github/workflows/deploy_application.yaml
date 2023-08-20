@@ -26,13 +26,10 @@ jobs:
           kubeconfig: ${{ secrets.KUBECONFIG }}
       - name: List files in kubernetes directory
         run: ls -l kubernetes
-      - name: create directory
-        run: mkdir $HOME/.kube
       - name: set kubeconfig data
-        run: echo "${{ secrets.KUBECONFIG }}" | base64 -d > $HOME/.kube/config
+        run: echo "${{ secrets.KUBECONFIG }}" | base64 -d > kubeconfig
       - name: Deploy application      
-        run: kubectl apply -f kubernetes/
-
+        run: kubectl --kubeconfig kubeconfig apply -f kubernetes/
       - name: Wait for deployment
         run: kubectl rollout status deployment
 
