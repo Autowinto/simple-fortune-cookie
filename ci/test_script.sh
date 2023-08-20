@@ -1,7 +1,7 @@
 #!/bin/bash
-NODE_EXTERNAL_IP=$(kubectl get nodes -o jsonpath='{.items[0].status.addresses[?(@.type=="ExternalIP")].address}')
+NODE_EXTERNAL_IP=$(kubectl --kubeconfig kubeconfig get nodes -o jsonpath='{.items[0].status.addresses[?(@.type=="ExternalIP")].address}')
 # Get the NodePort of the frontend service
-FRONTEND_NODE_PORT=$(kubectl get service frontend -o jsonpath='{.spec.ports[0].nodePort}')
+FRONTEND_NODE_PORT=$(kubectl --kubeconfig kubeconfig get service frontend -o jsonpath='{.spec.ports[0].nodePort}')
 APP_URL="http://$NODE_EXTERNAL_IP:$FRONTEND_NODE_PORT/api/all"
 EXPECTED_RESP="200"
 
