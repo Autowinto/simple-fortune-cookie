@@ -31,7 +31,7 @@ jobs:
       - name: Deploy application      
         run: kubectl --kubeconfig kubeconfig apply -f kubernetes/
       - name: Wait for deployment
-        run: kubectl rollout status deployment
+        run: kubectl --kubeconfig kubeconfig rollout status deployment
 
       - name: Run test script
         run: |
